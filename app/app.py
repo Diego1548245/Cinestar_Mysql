@@ -5,7 +5,6 @@ app = Flask(__name__)
 
 config = {
     'host': 'localhost',
-    'port': '3306',
     'user': 'root',
     'password': '',
     'database': 'CineStar'
@@ -58,7 +57,7 @@ def cine(id):
 @app.route('/peliculas/cartelera')
 def cartelera():
     cursor = cnx.cursor(dictionary=True)
-    cursor.callproc('sp_getPeliculass')
+    cursor.callproc('sp_getPeliculasCartelera')
     for data in cursor.stored_results():
         peliculas = data.fetchall()
     return render_template('peliculas.html', peliculas=peliculas)
@@ -66,7 +65,7 @@ def cartelera():
 @app.route('/peliculas/estrenos')
 def estrenos():
     cursor = cnx.cursor(dictionary=True)
-    cursor.callproc('sp_getPeliculass')
+    cursor.callproc('sp_getPeliculasEstreno')
     for data in cursor.stored_results():
         peliculas = data.fetchall()
     cursor.close()
